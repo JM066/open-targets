@@ -1792,7 +1792,7 @@ export type LungCarcinomaAssociatedTargetsQuery = {
 		associatedTargets: {
 			rows: Array<{
 				score: number
-				target: { id: string; approvedSymbol: string }
+				target: { id: string; approvedSymbol: string; approvedName: string }
 				datatypeScores: Array<{ id: string; score: number }>
 			}>
 		}

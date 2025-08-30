@@ -7,11 +7,12 @@ import type { LungCarcinomaAssociatedTargetsQuery } from '../../graphql/generate
 export const GET_DISEASE_ASSOCIATED_TARGETS = gql`
 	query lungCarcinomaAssociatedTargets {
 		disease(efoId: "EFO_0001071") {
-			associatedTargets(page: { index: 0, size: 25 }) {
+			associatedTargets(page: { index: 0, size: 10 }) {
 				rows {
 					target {
 						id
 						approvedSymbol
+						approvedName
 					}
 					score
 					datatypeScores {
