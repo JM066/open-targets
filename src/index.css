@@ -1,0 +1,20 @@
+@import 'tailwindcss';
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+.loader {
+	@apply border-solid border-4 border-gray-200;
+	@apply rounded-full w-12 h-12;
+	border-top-color: #2dcda8;
+	animation: spin 1s linear infinite;
+}
+
+:root {
+	/* ... */
+}
