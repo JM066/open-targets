@@ -1,0 +1,21 @@
+import type { CodegenConfig } from '@graphql-codegen/cli'
+
+const config: CodegenConfig = {
+	schema: 'src/graphql/schema.graphql',
+	documents: 'src/**/*.{ts,tsx}',
+	generates: {
+		'src/graphql/generated.ts': {
+			plugins: ['typescript', 'typescript-operations'],
+			config: {
+				useTypeImports: true,
+				enumsAsTypes: true,
+				skipTypename: true,
+				scalars: {
+					Long: 'number',
+				},
+			},
+		},
+	},
+}
+
+export default config

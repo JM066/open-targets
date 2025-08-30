@@ -1,36 +1,46 @@
 {
-  "name": "project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "eslint . && tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css}\"",
-    "prepare": "husky"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.12",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.12"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.33.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
-    "@vitejs/plugin-react": "^5.0.0",
-    "eslint": "^9.33.0",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
-    "globals": "^16.3.0",
-    "husky": "^9.1.7",
-    "prettier": "^3.6.2",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
-  }
+	"name": "project",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "eslint . && tsc -b && vite build",
+		"lint": "eslint .",
+		"preview": "vite preview",
+		"format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css}\"",
+		"prepare": "husky",
+		"codegen": "graphql-codegen --config codegen.ts",
+		"codegen:watch": "graphql-codegen --config codegen.ts --watch"
+	},
+	"dependencies": {
+		"@tailwindcss/vite": "^4.1.12",
+		"@tanstack/react-query": "^5.85.5",
+		"graphql": "^16.11.0",
+		"graphql-request": "^7.2.0",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"react-error-boundary": "^6.0.0",
+		"tailwindcss": "^4.1.12"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.33.0",
+		"@graphql-codegen/cli": "^5.0.7",
+		"@graphql-codegen/typescript": "^4.1.6",
+		"@graphql-codegen/typescript-operations": "^4.6.1",
+		"@graphql-codegen/typescript-react-query": "^6.1.1",
+		"@types/react": "^19.1.10",
+		"@types/react-dom": "^19.1.7",
+		"@vitejs/plugin-react": "^5.0.0",
+		"eslint": "^9.33.0",
+		"eslint-plugin-prettier": "^5.5.4",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-react-refresh": "^0.4.20",
+		"globals": "^16.3.0",
+		"husky": "^9.1.7",
+		"prettier": "^3.6.2",
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.39.1",
+		"vite": "^7.1.2"
+	}
 }
