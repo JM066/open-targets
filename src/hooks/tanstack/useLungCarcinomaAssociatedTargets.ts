@@ -29,7 +29,7 @@ const API_URL = 'https://api.platform.opentargets.org/api/v4/graphql'
 
 const graphqlClient = new GraphQLClient(API_URL)
 
-export const useLungCarcinomaAssociatedTargets = () => {
+export default function useLungCarcinomaAssociatedTargets() {
 	return useQuery<LungCarcinomaAssociatedTargetsQuery, Error>({
 		queryKey: ['lungCarcinomaAssociatedTargets'],
 		queryFn: async () => {
