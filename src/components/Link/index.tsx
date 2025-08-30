@@ -6,7 +6,7 @@ function Link({ location, children }: { location: string; children: ReactNode })
 			href={location}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="text-blue-600 hover:text-blue-700 cursor-pointer text-xl font-bold"
+			className="cursor-pointer text-blue-600 hover:text-blue-700 cursor-pointer text-xl font-bold"
 		>
 			{children}
 		</a>

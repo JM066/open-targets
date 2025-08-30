@@ -23,7 +23,7 @@ function Button(props: Props) {
 
 	return (
 		<button
-			className={`px-4 py-2 w-32 transition-colors duration-200 focus:outline-none ${colorClasses}`}
+			className={`px-4 py-2 w-32 cursor-pointer transition-colors duration-200 focus:outline-none ${colorClasses}`}
 			onClick={onClick}
 			type={type}
 		>
