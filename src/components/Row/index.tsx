@@ -1,11 +1,17 @@
-import { memo, type ReactNode } from 'react'
+import classNames from 'classnames';
+import { memo, type ReactNode } from 'react';
 
-function Row({ children }: { children: ReactNode }) {
+function Row({ children, className }: { className?: string; children?: ReactNode }) {
 	return (
-		<div className="overflow-hidden border border-gray-300 grid grid-cols-[48px_minmax(80px,1fr)_minmax(200px,2fr)_minmax(120px,1fr)] divide-x divide-gray-300">
+		<div
+			className={classNames(
+				'overflow-hidden border border-gray-300 grid grid-cols-[48px_minmax(80px,1fr)_minmax(200px,2fr)_minmax(120px,1fr)] divide-x divide-gray-300',
+				className
+			)}
+		>
 			{children}
 		</div>
-	)
+	);
 }
 
-export default memo(Row)
+export default memo(Row);

@@ -1,20 +1,20 @@
-import { useMemo, useState, lazy, Suspense } from 'react'
-import useLungCarcinomaAssociatedTargets from '../../hooks/tanstack/useLungCarcinomaAssociatedTargets'
-import { arrayToMap } from '../../helpers/arrayHelper'
-import TargetTable from '../TargetTable'
-import TargetRadarChart from '../TargetRadarChart'
-import Tabs from '../Tabs'
-import Row from '../Row'
-import Column from '../Column'
-import Text from '../Text'
+import { useMemo, useState, lazy, Suspense } from 'react';
+import useLungCarcinomaAssociatedTargets from '../../hooks/tanstack/useLungCarcinomaAssociatedTargets';
+import { arrayToMap } from '../../helpers/arrayHelper';
+import TargetTable from '../TargetTable';
+import TargetRadarChart from '../TargetRadarChart';
+import Tabs from '../Tabs';
+import Row from '../Row';
+import Column from '../Column';
+import Text from '../Text';
 
-const TargetBarChart = lazy(() => import('../TargetBarChart'))
+const TargetBarChart = lazy(() => import('../TargetBarChart'));
 
 function DiseaseTargets() {
-	const { data, isLoading, isError, error } = useLungCarcinomaAssociatedTargets()
-	const { rows } = data?.disease?.associatedTargets || {}
-	const [selectedId, setSelectedId] = useState<string | undefined>(undefined)
-	const [isBarChartVisible, setIsBarChartVisible] = useState(false)
+	const { data, isLoading, isError, error } = useLungCarcinomaAssociatedTargets();
+	const { rows } = data?.disease?.associatedTargets || {};
+	const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
+	const [isBarChartVisible, setIsBarChartVisible] = useState(false);
 	const rowsMap = useMemo(
 		() =>
 			arrayToMap(
@@ -23,21 +23,22 @@ function DiseaseTargets() {
 				(row) => row.datatypeScores
 			),
 		[rows]
-	)
+	);
 
-	console.log('rowsMap', rowsMap, rows)
+	console.log('rowsMap', rowsMap, rows);
 
-	const Chart = isBarChartVisible ? TargetBarChart : TargetRadarChart
+	const Chart = isBarChartVisible ? TargetBarChart : TargetRadarChart;
 	if (isLoading) {
-		return <div className="loader" />
+		return <div className="loader" />;
 	}
 
 	if (isError) {
-		throw new Error(error?.message || 'Failed to load data')
+		console.log('error', error);
+		throw error || new Error('Failed to load data');
 	}
 
 	return (
-		<div className="max-w-6xl mx-auto p-6">
+		<div className="max-w-6xl">
 			<Text as="h2" size="XLarge" boldness="Semibold" className="mb-4" text="Genes associated with lung carcinoma" />
 			<Row>
 				<Column />
@@ -59,17 +60,19 @@ function DiseaseTargets() {
 					approvedName={target.approvedName}
 					score={score}
 					onSelect={setSelectedId}
-				/>
+					selectedId={selectedId}
+				>
+					{selectedId === target.id && rowsMap[selectedId] && (
+						<div className="w-full bg-gray-50 border border-gray-200 p-4 flex flex-col items-center">
+							<Tabs isBarChartSelected={isBarChartVisible} onBarChartSelect={setIsBarChartVisible} />
+							<Suspense fallback={<div className="loader" />}>
+								<Chart data={rowsMap[selectedId]} />
+							</Suspense>
+						</div>
+					)}
+				</TargetTable>
 			))}
-			{selectedId && rowsMap[selectedId] && (
-				<div className="flex flex-col outline outline-2 outline-gray-200 p-4 mt-8 rounded-lg">
-					<Tabs isBarChartSelected={isBarChartVisible} onBarChartSelect={setIsBarChartVisible} />
-					<Suspense fallback={<div className="loader" />}>
-						<Chart data={rowsMap[selectedId]} />
-					</Suspense>
-				</div>
-			)}
 		</div>
-	)
+	);
 }
-export default DiseaseTargets
+export default DiseaseTargets;

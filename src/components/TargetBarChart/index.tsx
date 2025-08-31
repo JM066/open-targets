@@ -1,12 +1,12 @@
-import { memo } from 'react'
-import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts'
+import { memo } from 'react';
+import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 interface Props {
-	id: string
-	score: number
+	id: string;
+	score: number;
 }
 function TargetBarChart({ data }: { data: Props[] }) {
-	console.log({ data })
+	console.log({ data });
 	return (
 		<ResponsiveContainer width="100%" height={350}>
 			<BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
@@ -18,6 +18,6 @@ function TargetBarChart({ data }: { data: Props[] }) {
 				<Bar dataKey="score" fill="#2563eb" />
 			</BarChart>
 		</ResponsiveContainer>
-	)
+	);
 }
-export default memo(TargetBarChart)
+export default memo(TargetBarChart);

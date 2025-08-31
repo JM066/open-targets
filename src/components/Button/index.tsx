@@ -1,30 +1,30 @@
-import classNames from 'classnames'
-import { memo, type ReactNode } from 'react'
+import classNames from 'classnames';
+import { memo, type ReactNode } from 'react';
 
 export const Variant = {
 	Primary: 'text-white bg-blue-600 border border-blue-600 hover:bg-blue-700 hover:border-blue-700',
 	Inverted: 'text-blue-600 bg-white border border-blue-600 hover:bg-blue-50',
 	Clean: 'bg-white text-blue-600',
 	Custom: '',
-} as const
+} as const;
 
 export const Size = {
 	Small: 'w-12 px-3 py-2',
 	Medium: 'w-32 px-4 py-2',
 	Large: 'w-48 px-6 py-2',
-}
+};
 export interface Props {
-	children?: ReactNode
-	className?: string
-	variant?: keyof typeof Variant
-	size?: keyof typeof Size
-	type?: 'button' | 'submit' | 'reset'
-	isLoading?: boolean
-	onClick?: () => void
+	children?: ReactNode;
+	className?: string;
+	variant?: keyof typeof Variant;
+	size?: keyof typeof Size;
+	type?: 'button' | 'submit' | 'reset';
+	isLoading?: boolean;
+	onClick?: () => void;
 }
 
 function Button(props: Props) {
-	const { children, variant = 'Primary', size = 'Medium', type = 'button', isLoading = false, onClick } = props
+	const { children, variant = 'Primary', size = 'Medium', type = 'button', isLoading = false, onClick } = props;
 
 	return (
 		<button
@@ -38,7 +38,7 @@ function Button(props: Props) {
 		>
 			{isLoading ? <span className="inline-block">Loading...</span> : children}
 		</button>
-	)
+	);
 }
 
-export default memo(Button)
+export default memo(Button);
