@@ -1,5 +1,6 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
 import Button from '../Button'
+import Text from '../Text'
 
 interface Props {
 	isBarChartSelected: boolean
@@ -7,21 +8,21 @@ interface Props {
 }
 
 function Tabs({ isBarChartSelected, onBarChartSelect }: Props) {
-	const onBarChartClick = () => {
+	const onBarChartClick = useCallback(() => {
 		onBarChartSelect(true)
-	}
+	}, [onBarChartSelect])
 
-	const onRadarChartClick = () => {
+	const onRadarChartClick = useCallback(() => {
 		onBarChartSelect(false)
-	}
+	}, [onBarChartSelect])
 
 	return (
-		<div className="flex flex-row mb-4 justify-start items-start">
-			<Button onClick={onBarChartClick} color={isBarChartSelected ? 'Primary' : 'Inverted'}>
-				Bar Chart
+		<div className="flex flex-row mb-4 justify-start items-start overflow-hidden">
+			<Button onClick={onBarChartClick} variant={isBarChartSelected ? 'Primary' : 'Inverted'}>
+				<Text text="Bar Chart" />
 			</Button>
-			<Button onClick={onRadarChartClick} color={!isBarChartSelected ? 'Primary' : 'Inverted'}>
-				Radar Chart
+			<Button onClick={onRadarChartClick} variant={!isBarChartSelected ? 'Primary' : 'Inverted'}>
+				<Text text="Radar Chart" />
 			</Button>
 		</div>
 	)

@@ -1,15 +1,14 @@
-import { memo, type ReactNode } from 'react'
+import { memo } from 'react'
+import classNames from 'classnames'
 
-function Link({ location, children }: { location: string; children: ReactNode }) {
+function Link({ location, className }: { location: string; className?: string }) {
 	return (
 		<a
 			href={location}
 			target="_blank"
 			rel="noopener noreferrer"
-			className="cursor-pointer text-blue-600 hover:text-blue-700 cursor-pointer text-xl font-bold"
-		>
-			{children}
-		</a>
+			className={classNames('absolute apacity-0 inset-0 z-10 cursor-pointer', className)}
+		/>
 	)
 }
 export default memo(Link)

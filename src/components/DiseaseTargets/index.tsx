@@ -4,6 +4,9 @@ import { arrayToMap } from '../../helpers/arrayHelper'
 import TargetTable from '../TargetTable'
 import TargetRadarChart from '../TargetRadarChart'
 import Tabs from '../Tabs'
+import Row from '../Row'
+import Column from '../Column'
+import Text from '../Text'
 
 const TargetBarChart = lazy(() => import('../TargetBarChart'))
 
@@ -35,19 +38,19 @@ function DiseaseTargets() {
 
 	return (
 		<div className="max-w-6xl mx-auto p-6">
-			<h2 className="text-2xl font-bold mb-4">Genes associated with lung carcinoma</h2>
-			<div className="border border-gray-300 grid grid-cols-[48px_minmax(120px,1fr)_minmax(200px,2fr)_minmax(150px,1fr)] font-bold divide-x divide-gray-300">
-				<span className="px-3 py-2"></span>
-				<span className="px-3 py-2">
-					<p>Approved Symbol</p>
-				</span>
-				<span className="px-3 py-2">
-					<p>Gene Name</p>
-				</span>
-				<span className="px-3 py-2">
-					<p>Overall Association Score</p>
-				</span>
-			</div>
+			<Text as="h2" size="XLarge" boldness="Semibold" className="mb-4" text="Genes associated with lung carcinoma" />
+			<Row>
+				<Column />
+				<Column>
+					<Text text="Approved Symbol" />
+				</Column>
+				<Column>
+					<Text text="Gene Name" />
+				</Column>
+				<Column>
+					<Text text="Overall Association Score" />
+				</Column>
+			</Row>
 			{rows?.map(({ target, score }) => (
 				<TargetTable
 					key={target.id}
