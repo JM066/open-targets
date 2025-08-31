@@ -24,7 +24,15 @@ export interface Props {
 }
 
 function Button(props: Props) {
-	const { children, variant = 'Primary', size = 'Medium', type = 'button', isLoading = false, onClick } = props;
+	const {
+		children,
+		variant = 'Primary',
+		size = 'Medium',
+		type = 'button',
+		isLoading = false,
+		onClick,
+		...rest
+	} = props;
 
 	return (
 		<button
@@ -35,6 +43,7 @@ function Button(props: Props) {
 			)}
 			onClick={onClick}
 			type={type}
+			{...rest}
 		>
 			{isLoading ? <span className="inline-block">Loading...</span> : children}
 		</button>

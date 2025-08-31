@@ -1,6 +1,6 @@
-export const ChartType = {
+export const CHART_TYPE = {
 	BAR: 'bar',
 	RADAR: 'radar',
 } as const;
 
-export type ChartTypeValue = (typeof ChartType)[keyof typeof ChartType];
+export type ChartType = (typeof CHART_TYPE)[keyof typeof CHART_TYPE];

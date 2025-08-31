@@ -1,8 +1,8 @@
 import { useMemo, useState, lazy, Suspense } from 'react';
 import useLungCarcinomaAssociatedTargets from '../../hooks/tanstack/useLungCarcinomaAssociatedTargets';
 import { arrayToMap } from '../../helpers/arrayHelper';
-import { ChartType } from '../../types';
-import type { ChartTypeValue } from '../../types';
+import { CHART_TYPE } from '../../types';
+import type { ChartType } from '../../types';
 import TargetTable from '../TargetTable';
 import TargetRadarChart from '../TargetRadarChart';
 import Tabs from '../Tabs';
@@ -11,12 +11,16 @@ import Column from '../Column';
 import Text from '../Text';
 
 const TargetBarChart = lazy(() => import('../TargetBarChart'));
+export const ChartTabs = [
+	{ id: CHART_TYPE.BAR, label: 'Bar Chart' },
+	{ id: CHART_TYPE.RADAR, label: 'Radar Chart' },
+];
 
 function DiseaseTargets() {
 	const { data, isLoading, isError, error } = useLungCarcinomaAssociatedTargets();
 	const { rows } = data?.disease?.associatedTargets || {};
 	const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
-	const [activeChartType, setActiveChartType] = useState<ChartTypeValue>(ChartType.BAR);
+	const [activeChartType, setActiveChartType] = useState<ChartType>(CHART_TYPE.BAR);
 	const rowsMap = useMemo(
 		() =>
 			arrayToMap(
@@ -27,7 +31,8 @@ function DiseaseTargets() {
 		[rows]
 	);
 
-	const Chart = activeChartType === ChartType.BAR ? TargetBarChart : TargetRadarChart;
+	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
+
 	if (isLoading) {
 		return <div className="loader" />;
 	}
@@ -64,11 +69,8 @@ function DiseaseTargets() {
 				>
 					{selectedId === target.id && rowsMap[selectedId] && (
 						<div className="w-full bg-gray-50 border border-gray-200 p-4 flex flex-col items-center">
-							<Tabs
-								tabs={[
-									{ id: ChartType.RADAR, label: 'Radar Chart' },
-									{ id: ChartType.BAR, label: 'Bar Chart' },
-								]}
+							<Tabs<ChartType>
+								tabs={ChartTabs}
 								activeTabId={activeChartType}
 								onTabChange={setActiveChartType}
 								className="mb-4"

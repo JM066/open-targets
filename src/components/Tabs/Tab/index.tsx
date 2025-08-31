@@ -1,25 +1,26 @@
 import { memo, useCallback } from 'react';
-import type { ChartTypeValue } from '../../../types';
+import type { ReactElement } from 'react';
 import Button from '../../Button';
 import Text from '../../Text';
 
-interface Props {
-	tabId: string;
+interface Props<T> {
+	tabId: T;
 	label: string;
 	isActive: boolean;
-	onTabChange: (tabId: ChartTypeValue) => void;
+	onTabChange: (tabId: T) => void;
+	testId?: string;
 }
 
-function Tab({ tabId, label, isActive, onTabChange }: Props) {
+function Tab<T extends string>({ tabId, label, isActive, onTabChange, testId }: Props<T>) {
 	const onClick = useCallback(() => {
-		onTabChange(tabId as ChartTypeValue);
+		onTabChange(tabId);
 	}, [onTabChange, tabId]);
 
 	return (
-		<Button onClick={onClick} variant={isActive ? 'Primary' : 'Inverted'}>
+		<Button onClick={onClick} variant={isActive ? 'Primary' : 'Inverted'} data-testid={testId}>
 			<Text text={label} />
 		</Button>
 	);
 }
 
-export default memo(Tab);
+export default memo(Tab) as <T extends string>(props: Props<T>) => ReactElement;
