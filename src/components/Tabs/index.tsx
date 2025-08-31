@@ -1,29 +1,32 @@
-import { memo, useCallback } from 'react';
-import Button from '../Button';
-import Text from '../Text';
+import { memo } from 'react';
+import type { ChartTypeValue } from '../../types';
+import classNames from 'classnames';
+import Tab from './Tab';
 
-interface Props {
-	isBarChartSelected: boolean;
-	onBarChartSelect: (isBarChart: boolean) => void;
+interface Tab {
+	id: string;
+	label: string;
 }
 
-function Tabs({ isBarChartSelected, onBarChartSelect }: Props) {
-	const onBarChartClick = useCallback(() => {
-		onBarChartSelect(true);
-	}, [onBarChartSelect]);
+interface Props {
+	tabs: Tab[];
+	activeTabId: ChartTypeValue;
+	onTabChange: (tabId: ChartTypeValue) => void;
+	className?: string;
+}
 
-	const onRadarChartClick = useCallback(() => {
-		onBarChartSelect(false);
-	}, [onBarChartSelect]);
-
+function Tabs({ tabs, activeTabId, onTabChange, className }: Props) {
 	return (
-		<div className="w-full flex flex-row mb-4 justify-start items-start overflow-hidden">
-			<Button onClick={onBarChartClick} variant={isBarChartSelected ? 'Primary' : 'Inverted'}>
-				<Text text="Bar Chart" />
-			</Button>
-			<Button onClick={onRadarChartClick} variant={!isBarChartSelected ? 'Primary' : 'Inverted'}>
-				<Text text="Radar Chart" />
-			</Button>
+		<div className={classNames('w-full', className)}>
+			{tabs.map((tab) => (
+				<Tab
+					key={tab.id}
+					tabId={tab.id}
+					onTabChange={onTabChange}
+					isActive={activeTabId === tab.id}
+					label={tab.label}
+				/>
+			))}
 		</div>
 	);
 }

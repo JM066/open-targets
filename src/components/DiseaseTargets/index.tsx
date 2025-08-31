@@ -1,6 +1,8 @@
 import { useMemo, useState, lazy, Suspense } from 'react';
 import useLungCarcinomaAssociatedTargets from '../../hooks/tanstack/useLungCarcinomaAssociatedTargets';
 import { arrayToMap } from '../../helpers/arrayHelper';
+import { ChartType } from '../../types';
+import type { ChartTypeValue } from '../../types';
 import TargetTable from '../TargetTable';
 import TargetRadarChart from '../TargetRadarChart';
 import Tabs from '../Tabs';
@@ -14,7 +16,7 @@ function DiseaseTargets() {
 	const { data, isLoading, isError, error } = useLungCarcinomaAssociatedTargets();
 	const { rows } = data?.disease?.associatedTargets || {};
 	const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
-	const [isBarChartVisible, setIsBarChartVisible] = useState(false);
+	const [activeChartType, setActiveChartType] = useState<ChartTypeValue>(ChartType.BAR);
 	const rowsMap = useMemo(
 		() =>
 			arrayToMap(
@@ -25,9 +27,7 @@ function DiseaseTargets() {
 		[rows]
 	);
 
-	console.log('rowsMap', rowsMap, rows);
-
-	const Chart = isBarChartVisible ? TargetBarChart : TargetRadarChart;
+	const Chart = activeChartType === ChartType.BAR ? TargetBarChart : TargetRadarChart;
 	if (isLoading) {
 		return <div className="loader" />;
 	}
@@ -38,7 +38,7 @@ function DiseaseTargets() {
 	}
 
 	return (
-		<div className="max-w-6xl">
+		<div className="max-w-6xl h-screen">
 			<Text as="h2" size="XLarge" boldness="Semibold" className="mb-4" text="Genes associated with lung carcinoma" />
 			<Row>
 				<Column />
@@ -64,7 +64,15 @@ function DiseaseTargets() {
 				>
 					{selectedId === target.id && rowsMap[selectedId] && (
 						<div className="w-full bg-gray-50 border border-gray-200 p-4 flex flex-col items-center">
-							<Tabs isBarChartSelected={isBarChartVisible} onBarChartSelect={setIsBarChartVisible} />
+							<Tabs
+								tabs={[
+									{ id: ChartType.RADAR, label: 'Radar Chart' },
+									{ id: ChartType.BAR, label: 'Bar Chart' },
+								]}
+								activeTabId={activeChartType}
+								onTabChange={setActiveChartType}
+								className="mb-4"
+							/>
 							<Suspense fallback={<div className="loader" />}>
 								<Chart data={rowsMap[selectedId]} />
 							</Suspense>
