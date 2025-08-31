@@ -31,6 +31,7 @@ function Button(props: Props) {
 		type = 'button',
 		isLoading = false,
 		onClick,
+		className,
 		...rest
 	} = props;
 
@@ -39,7 +40,8 @@ function Button(props: Props) {
 			className={classNames(
 				'cursor-pointer transition-colors duration-200 focus:outline-none',
 				Variant[variant],
-				Size[size]
+				Size[size],
+				className
 			)}
 			onClick={onClick}
 			type={type}
