@@ -21,14 +21,16 @@ function DiseaseTargets() {
 	const { rows } = data?.disease?.associatedTargets || {};
 	const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
 	const [activeChartType, setActiveChartType] = useState<ChartType>(CHART_TYPE.BAR);
+	const sortedRow = useMemo(() => rows?.slice().sort((a, b) => b.score - a.score), [rows]);
+
 	const rowsMap = useMemo(
 		() =>
 			arrayToMap(
-				rows ?? [],
+				sortedRow ?? [],
 				(row) => row.target.id,
 				(row) => row.datatypeScores
 			),
-		[rows]
+		[sortedRow]
 	);
 
 	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
@@ -56,7 +58,7 @@ function DiseaseTargets() {
 					<Text text="Overall Association Score" />
 				</Column>
 			</Row>
-			{rows?.map(({ target, score }) => (
+			{sortedRow?.map(({ target, score }) => (
 				<TargetTable
 					key={target.id}
 					id={target.id}
