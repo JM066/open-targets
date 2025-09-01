@@ -38,7 +38,6 @@ function DiseaseTargets() {
 	}
 
 	if (isError) {
-		console.log('error', error);
 		throw error || new Error('Failed to load data');
 	}
 

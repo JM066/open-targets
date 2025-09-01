@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "eslint . && tsc -b && vite build",
+		"start": "npm run build && npx serve dist -s",
 		"lint": "eslint .",
 		"preview": "vite preview",
 		"test": "vitest",
@@ -26,6 +27,7 @@
 		"react-dom": "^19.1.1",
 		"react-error-boundary": "^6.0.0",
 		"recharts": "^3.1.2",
+		"serve": "^14.2.4",
 		"tailwindcss": "^4.1.12"
 	},
 	"devDependencies": {
