@@ -7,7 +7,7 @@ interface Props {
 }
 function TargetRadarChart({ data }: { data: Props[] }) {
 	return (
-		<ResponsiveContainer width="100%" height={400}>
+		<ResponsiveContainer width="100%" height={350}>
 			<RadarChart outerRadius={90} data={data}>
 				<PolarGrid />
 				<PolarAngleAxis dataKey="id" />
