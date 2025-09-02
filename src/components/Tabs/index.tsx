@@ -8,11 +8,19 @@ interface Props<T> {
 	onTabChange: (tabId: T) => void;
 	className?: string;
 	children?: ReactNode;
+	'data-testid'?: string;
 }
 
-function Tabs<T extends string>({ tabs, activeTabId, onTabChange, className, children }: Props<T>) {
+function Tabs<T extends string>({
+	tabs,
+	activeTabId,
+	onTabChange,
+	'data-testid': testId = 'tabs-container',
+	className,
+	children,
+}: Props<T>) {
 	return (
-		<div className={classNames('w-full', className)} data-testid="tabs-container">
+		<div className={classNames('w-full', className)} data-testid={testId}>
 			{tabs.map((tab, i) => (
 				<Tab<T>
 					key={`${tab.id}_${i}`}
@@ -20,7 +28,7 @@ function Tabs<T extends string>({ tabs, activeTabId, onTabChange, className, chi
 					onTabChange={onTabChange}
 					isActive={activeTabId === tab.id}
 					label={tab.label}
-					testId={`tab-${tab.id}`}
+					data-testid={`tab-${tab.id}`}
 				/>
 			))}
 			{children}

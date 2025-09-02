@@ -9,9 +9,10 @@ interface Props<T> {
 	isActive: boolean;
 	onTabChange: (tabId: T) => void;
 	testId?: string;
+	'data-testid'?: string;
 }
 
-function Tab<T extends string>({ tabId, label, isActive, onTabChange, testId }: Props<T>) {
+function Tab<T extends string>({ tabId, label, isActive, onTabChange, 'data-testid': testId = 'tab' }: Props<T>) {
 	const onClick = useCallback(() => {
 		onTabChange(tabId);
 	}, [onTabChange, tabId]);
