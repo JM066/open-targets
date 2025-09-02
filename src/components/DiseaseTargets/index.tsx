@@ -1,4 +1,4 @@
-import { useMemo, useState, lazy, Suspense } from 'react';
+import { useMemo, useState, lazy, Suspense, useCallback } from 'react';
 import useLungCarcinomaAssociatedTargets from '../../hooks/tanstack/useLungCarcinomaAssociatedTargets';
 import { arrayToMap } from '../../helpers/arrayHelper';
 import { CHART_TYPE } from '../../types';
@@ -9,6 +9,7 @@ import Tabs from '../Tabs';
 import Row from '../Row';
 import Column from '../Column';
 import Text from '../Text';
+import classNames from 'classnames';
 
 const TargetBarChart = lazy(() => import('../TargetBarChart'));
 export const ChartTabs = [
@@ -22,6 +23,7 @@ function DiseaseTargets() {
 	const [selectedId, setSelectedId] = useState<string | undefined>(undefined);
 	const [activeChartType, setActiveChartType] = useState<ChartType>(CHART_TYPE.BAR);
 	const sortedRow = useMemo(() => rows?.slice().sort((a, b) => b.score - a.score), [rows]);
+	const [toggle, setToggle] = useState(false);
 
 	const rowsMap = useMemo(
 		() =>
@@ -32,6 +34,9 @@ function DiseaseTargets() {
 			),
 		[sortedRow]
 	);
+	const onToggle = useCallback(() => {
+		setToggle((prev) => !prev);
+	}, [setToggle]);
 
 	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
 
@@ -67,9 +72,20 @@ function DiseaseTargets() {
 					score={score}
 					onSelect={setSelectedId}
 					selectedId={selectedId}
+					onToggle={onToggle}
+					toggle={toggle}
 				>
 					{selectedId === target.id && rowsMap[selectedId] && (
-						<div className="w-full bg-gray-50 border border-gray-200 p-4 flex flex-col items-center">
+						<div
+							className={classNames(
+								'w-full bg-gray-50 border border-gray-200 flex flex-col items-center',
+								'transition-all duration-500 ease-in-out overflow-hidden',
+								{
+									'opacity-100 max-h-96 p-4': toggle,
+									'opacity-0 max-h-0 p-0 border-0 m-0': !toggle,
+								}
+							)}
+						>
 							<Tabs<ChartType>
 								tabs={ChartTabs}
 								activeTabId={activeChartType}

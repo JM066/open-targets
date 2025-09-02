@@ -10,18 +10,22 @@ interface Props {
 	approvedSymbol: string;
 	approvedName: string;
 	score: number;
-	onSelect?: (id?: string) => void;
+	toggle: boolean;
+	onToggle: () => void;
+	onSelect: (id?: string) => void;
 	children?: ReactNode;
 	className?: string;
 	selectedId?: string;
 }
 
 function TargetTable(props: Props) {
-	const { id, approvedSymbol, approvedName, score, onSelect, children, className, selectedId } = props;
+	const { id, approvedSymbol, approvedName, score, onSelect, toggle, onToggle, children, className, selectedId } =
+		props;
 	const isSelected = selectedId === id;
 
 	const select = useCallback(() => {
-		onSelect?.(isSelected ? undefined : id);
+		onSelect(id);
+		onToggle();
 	}, [isSelected, onSelect, id]);
 
 	return (
@@ -33,7 +37,7 @@ function TargetTable(props: Props) {
 					className="flex items-center justify-center text-xl font-bold"
 					onClick={select}
 				>
-					<Text size="Large" boldness="Semibold" text={isSelected ? '-' : '+'} />
+					<Text size="Large" boldness="Semibold" text={selectedId === id && toggle ? '-' : '+'} />
 				</Button>
 				<Column className="relative">
 					<Text text={approvedSymbol} />

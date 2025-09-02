@@ -1,5 +1,4 @@
-import { memo } from 'react';
-import type { ReactElement } from 'react';
+import { memo, type ReactNode, type ReactElement } from 'react';
 import classNames from 'classnames';
 import Tab from './Tab';
 
@@ -8,9 +7,10 @@ interface Props<T> {
 	activeTabId: string;
 	onTabChange: (tabId: T) => void;
 	className?: string;
+	children?: ReactNode;
 }
 
-function Tabs<T extends string>({ tabs, activeTabId, onTabChange, className }: Props<T>) {
+function Tabs<T extends string>({ tabs, activeTabId, onTabChange, className, children }: Props<T>) {
 	return (
 		<div className={classNames('w-full', className)} data-testid="tabs-container">
 			{tabs.map((tab, i) => (
@@ -23,6 +23,7 @@ function Tabs<T extends string>({ tabs, activeTabId, onTabChange, className }: P
 					testId={`tab-${tab.id}`}
 				/>
 			))}
+			{children}
 		</div>
 	);
 }
