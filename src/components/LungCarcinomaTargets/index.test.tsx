@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '../../test/utils';
+import { render, screen } from '../../test/utils';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import LungCarcinomaTargets from './index';
@@ -21,14 +21,10 @@ describe('LungCarcinomaTargets with MSW', () => {
 	it('renders data in a descending order', async () => {
 		render(<LungCarcinomaTargets />);
 
-		await waitFor(() => {
-			expect(screen.getByText('BRCA1')).toBeInTheDocument();
-		});
-
-		expect(screen.getByText('BRCA1')).toBeInTheDocument();
+		// Wait for all the target names and scores to appear
+		await screen.findByText('BRCA1');
 		expect(screen.getByText('EGFR')).toBeInTheDocument();
 		expect(screen.getByText('TP53')).toBeInTheDocument();
-
 		expect(screen.getByText('0.923')).toBeInTheDocument();
 		expect(screen.getByText('0.856')).toBeInTheDocument();
 		expect(screen.getByText('0.742')).toBeInTheDocument();
@@ -38,16 +34,14 @@ describe('LungCarcinomaTargets with MSW', () => {
 		const user = userEvent.setup();
 		render(<LungCarcinomaTargets />);
 
-		await waitFor(() => {
-			expect(screen.getByText('EGFR')).toBeInTheDocument();
-		});
+		// Wait for EGFR to appear
+		await screen.findByText('EGFR');
 		// Select the second button (EGFR)
 		const egfrButton = screen.getAllByRole('button', { name: '+' })[1];
 		await user.click(egfrButton);
 
-		await waitFor(() => {
-			expect(screen.getByTestId('bar-chart')).toBeInTheDocument();
-			expect(screen.getByText('Bar Chart: literature, known_drug')).toBeInTheDocument();
-		});
+		// Wait for the chart to appear after clicking
+		await screen.findByTestId('bar-chart');
+		expect(screen.getByText('Bar Chart: literature, known_drug')).toBeInTheDocument();
 	});
 });
