@@ -4,8 +4,13 @@ import ErrorFallback from './components/ErrorFallback';
 import LungCarcinomaTargets from './components/LungCarcinomaTargets';
 import './App.css';
 
-const queryClient = new QueryClient();
-
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
 function App() {
 	return (
 		<QueryClientProvider client={queryClient}>

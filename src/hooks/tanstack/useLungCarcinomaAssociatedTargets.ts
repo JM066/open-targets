@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
-
 import { gql } from 'graphql-request';
 import type { LungCarcinomaAssociatedTargetsQuery } from '../../graphql/generated';
 
@@ -32,9 +31,6 @@ const graphqlClient = new GraphQLClient(API_URL);
 export default function useLungCarcinomaAssociatedTargets() {
 	return useQuery<LungCarcinomaAssociatedTargetsQuery, Error>({
 		queryKey: ['lungCarcinomaAssociatedTargets'],
-		queryFn: async () => {
-			const data = await graphqlClient.request<LungCarcinomaAssociatedTargetsQuery>(GET_DISEASE_ASSOCIATED_TARGETS);
-			return data;
-		},
+		queryFn: () => graphqlClient.request<LungCarcinomaAssociatedTargetsQuery>(GET_DISEASE_ASSOCIATED_TARGETS),
 	});
 }

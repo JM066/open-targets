@@ -8,9 +8,9 @@ import Row from '../Row';
 import Text from '../Text';
 import Expandable from '../Expandable';
 import Tabs from '../Tabs';
-import TargetRadarChart from '../TargetRadarChart';
 
 const TargetBarChart = lazy(() => import('../TargetBarChart'));
+const TargetRadarChart = lazy(() => import('../TargetRadarChart'));
 
 const ChartTabs = [
 	{ id: CHART_TYPE.BAR, label: 'Bar Chart' },
@@ -24,13 +24,12 @@ interface Props {
 	score: number;
 	onSelect: (id?: string) => void;
 	children?: ReactNode;
-	className?: string;
 	isSelected?: boolean;
 	chartData?: { id: string; score: number }[];
 }
 
 function TargetTable(props: Props) {
-	const { id, approvedSymbol, approvedName, score, onSelect, children, className, isSelected, chartData } = props;
+	const { id, approvedSymbol, approvedName, score, onSelect, children, isSelected, chartData } = props;
 
 	const [activeChartType, setActiveChartType] = useState<ChartType>(CHART_TYPE.BAR);
 	const [isExpanded, setIsExpanded] = useState(false);
@@ -43,7 +42,7 @@ function TargetTable(props: Props) {
 	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
 
 	return (
-		<div className={className}>
+		<>
 			<Row>
 				<Button
 					variant="Primary"
@@ -78,7 +77,7 @@ function TargetTable(props: Props) {
 					</Suspense>
 				</Expandable>
 			)}
-		</div>
+		</>
 	);
 }
 export default memo(TargetTable);
