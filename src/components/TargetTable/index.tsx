@@ -38,6 +38,7 @@ function TargetTable(props: Props) {
 		onSelect(id);
 		setIsExpanded((prev) => !prev);
 	}, [onSelect, id, isExpanded]);
+	console.log({ id, approvedSymbol, approvedName, score, onSelect, children, isSelected, chartData });
 
 	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
 

@@ -9,16 +9,15 @@ interface Props<T> {
 	isActive: boolean;
 	onTabChange: (tabId: T) => void;
 	testId?: string;
-	'data-testid'?: string;
 }
 
-function Tab<T extends string>({ tabId, label, isActive, onTabChange, 'data-testid': testId = 'tab' }: Props<T>) {
+function Tab<T extends string>({ tabId, label, isActive, onTabChange }: Props<T>) {
 	const onClick = useCallback(() => {
 		onTabChange(tabId);
 	}, [onTabChange, tabId]);
 
 	return (
-		<Button onClick={onClick} variant={isActive ? 'Primary' : 'Inverted'} data-testid={testId}>
+		<Button onClick={onClick} variant={isActive ? 'Primary' : 'Inverted'}>
 			<Text text={label} />
 		</Button>
 	);

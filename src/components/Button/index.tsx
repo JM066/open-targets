@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { memo, type ReactNode } from 'react';
+import { memo, type ReactNode, type HTMLAttributes } from 'react';
 
 export const Variant = {
 	Primary: 'text-white bg-blue-600 border border-blue-600 hover:bg-blue-700 hover:border-blue-700',
@@ -13,7 +13,7 @@ export const Size = {
 	Medium: 'w-32 px-4 py-2',
 	Large: 'w-48 px-6 py-2',
 };
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
 	className?: string;
 	variant?: keyof typeof Variant;

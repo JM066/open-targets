@@ -15,7 +15,7 @@ function Tabs<T extends string>({
 	tabs,
 	activeTabId,
 	onTabChange,
-	'data-testid': testId = 'tabs-container',
+	'data-testid': testId = 'tabs',
 	className,
 	children,
 }: Props<T>) {
@@ -28,7 +28,6 @@ function Tabs<T extends string>({
 					onTabChange={onTabChange}
 					isActive={activeTabId === tab.id}
 					label={tab.label}
-					data-testid={`tab-${tab.id}`}
 				/>
 			))}
 			{children}
