@@ -1,32 +1,46 @@
-import { memo, useCallback, type ReactNode } from 'react';
+import { memo, useCallback, useState, lazy, Suspense, type ReactNode } from 'react';
+import { CHART_TYPE } from '../../types';
+import type { ChartType } from '../../types';
 import Link from '../Link';
 import Button from '../Button';
 import Column from '../Column';
 import Row from '../Row';
 import Text from '../Text';
+import Expandable from '../Expandable';
+import Tabs from '../Tabs';
+import TargetRadarChart from '../TargetRadarChart';
+
+const TargetBarChart = lazy(() => import('../TargetBarChart'));
+
+const ChartTabs = [
+	{ id: CHART_TYPE.BAR, label: 'Bar Chart' },
+	{ id: CHART_TYPE.RADAR, label: 'Radar Chart' },
+];
 
 interface Props {
 	id: string;
 	approvedSymbol: string;
 	approvedName: string;
 	score: number;
-	toggle: boolean;
-	onToggle: () => void;
 	onSelect: (id?: string) => void;
 	children?: ReactNode;
 	className?: string;
-	selectedId?: string;
+	isSelected?: boolean;
+	chartData?: { id: string; score: number }[];
 }
 
 function TargetTable(props: Props) {
-	const { id, approvedSymbol, approvedName, score, onSelect, toggle, onToggle, children, className, selectedId } =
-		props;
-	const isSelected = selectedId === id;
+	const { id, approvedSymbol, approvedName, score, onSelect, children, className, isSelected, chartData } = props;
+
+	const [activeChartType, setActiveChartType] = useState<ChartType>(CHART_TYPE.BAR);
+	const [isExpanded, setIsExpanded] = useState(false);
 
 	const select = useCallback(() => {
 		onSelect(id);
-		onToggle();
-	}, [isSelected, onSelect, id]);
+		setIsExpanded((prev) => !prev);
+	}, [onSelect, id, isExpanded]);
+
+	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
 
 	return (
 		<div className={className}>
@@ -37,7 +51,7 @@ function TargetTable(props: Props) {
 					className="flex items-center justify-center text-xl font-bold"
 					onClick={select}
 				>
-					<Text size="Large" boldness="Semibold" text={selectedId === id && toggle ? '-' : '+'} />
+					<Text size="Large" boldness="Semibold" text={isSelected && isExpanded ? '-' : '+'} />
 				</Button>
 				<Column className="relative">
 					<Text text={approvedSymbol} />
@@ -51,6 +65,19 @@ function TargetTable(props: Props) {
 				</Column>
 			</Row>
 			{children}
+			{isSelected && chartData && (
+				<Expandable isExpanded={isExpanded}>
+					<Tabs<ChartType>
+						tabs={ChartTabs}
+						activeTabId={activeChartType}
+						onTabChange={setActiveChartType}
+						className="mb-4"
+					/>
+					<Suspense fallback={<div className="loader" />}>
+						<Chart data={chartData} />
+					</Suspense>
+				</Expandable>
+			)}
 		</div>
 	);
 }
