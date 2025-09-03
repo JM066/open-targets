@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 
 interface Props {
 	isExpanded: boolean;
@@ -23,4 +23,4 @@ function Expandable({ isExpanded, children, className }: Props) {
 		</div>
 	);
 }
-export default Expandable;
+export default memo(Expandable);

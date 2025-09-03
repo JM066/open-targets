@@ -15,20 +15,20 @@ export const Size = {
 	XLarge: 'text-xl',
 } as const;
 
-function Text(props: {
+export interface Props extends React.HTMLAttributes<HTMLElement> {
 	text: string | number;
 	size?: keyof typeof Size;
 	boldness?: keyof typeof Boldness;
 	as?: React.ElementType;
 	className?: string;
-	attributes?: React.HTMLAttributes<HTMLElement>;
-}) {
-	const { text, as, size = 'Medium', boldness = 'Normal', attributes, className } = props;
+}
+function Text(props: Props) {
+	const { text, as, size = 'Medium', boldness = 'Normal', className, ...rest } = props;
 	const Component = as || 'p';
 	return (
 		<Component
 			className={classNames('overflow-hidden text-ellipsis', Size[size], Boldness[boldness], className)}
-			{...attributes}
+			{...rest}
 		>
 			{text}
 		</Component>

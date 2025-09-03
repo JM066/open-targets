@@ -47,8 +47,30 @@ const mockSuccessResponse = {
 	},
 };
 
+const mockEmptyResponse = {
+	data: {
+		disease: {
+			associatedTargets: {
+				rows: [],
+			},
+		},
+	},
+};
+
+// Default handlers
 export const handlers = [
 	graphql.query('lungCarcinomaAssociatedTargets', () => {
 		return HttpResponse.json(mockSuccessResponse);
 	}),
 ];
+
+// Alternative handlers for testing
+export const mockEmptyDataResponse = () =>
+	graphql.query('lungCarcinomaAssociatedTargets', () => {
+		return HttpResponse.json(mockEmptyResponse);
+	});
+
+export const mockNetworkError = () =>
+	graphql.query('lungCarcinomaAssociatedTargets', () => {
+		return HttpResponse.error();
+	});

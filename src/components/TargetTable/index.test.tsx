@@ -52,8 +52,9 @@ describe('TargetTable', () => {
 		const selectButton = screen.getByRole('button', { name: '+' });
 		await user.click(selectButton);
 
-		expect(screen.getByText('-')).toBeInTheDocument();
-		expect(screen.getByTestId('bar-chart')).toBeInTheDocument();
+		const closeButton = await screen.findByText('-');
+		expect(closeButton).toBeInTheDocument();
+		expect(screen.getByTestId('chart-title')).toBeInTheDocument();
 	});
 
 	it('calls onSelect with correct id when clicked', async () => {
@@ -74,7 +75,7 @@ describe('TargetTable', () => {
 
 		const tabsContainer = screen.queryByTestId('tabs');
 		expect(tabsContainer).not.toBeInTheDocument();
-		expect(screen.queryByText('Bar Chart: literature, known_drug')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('chart-title')).not.toBeInTheDocument();
 	});
 
 	it('shows chart section when selected and has bar chart data', () => {
@@ -86,7 +87,7 @@ describe('TargetTable', () => {
 			],
 		};
 		render(<TargetTable {...propsWithData} isSelected={true} />);
-
+		expect(screen.getByTestId('chart-title')).toHaveTextContent('Data Type Scores: EGFR and lung carcinoma');
 		expect(screen.getByText('Bar Chart: literature, known_drug')).toBeInTheDocument();
 	});
 });

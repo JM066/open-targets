@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { GraphQLClient } from 'graphql-request';
 import { gql } from 'graphql-request';
-import type { LungCarcinomaAssociatedTargetsQuery } from '../../graphql/generated';
+import type { LungCarcinomaAssociatedTargetsQuery } from '../graphql/generated';
 
 export const GET_DISEASE_ASSOCIATED_TARGETS = gql`
 	query lungCarcinomaAssociatedTargets {
