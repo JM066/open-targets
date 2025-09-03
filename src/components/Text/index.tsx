@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { memo } from 'react';
+import { memo, type HTMLAttributes } from 'react';
 
 const Boldness = {
 	Normal: 'font-normal',
@@ -15,7 +15,7 @@ const Size = {
 	XLarge: 'text-xl',
 } as const;
 
-interface Props extends React.HTMLAttributes<HTMLElement> {
+interface Props extends HTMLAttributes<HTMLElement> {
 	text: string | number;
 	size?: keyof typeof Size;
 	boldness?: keyof typeof Boldness;

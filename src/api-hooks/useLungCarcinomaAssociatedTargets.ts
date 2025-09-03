@@ -24,7 +24,7 @@ export const GET_DISEASE_ASSOCIATED_TARGETS = gql`
 	}
 `;
 
-const graphqlClient = new GraphQLClient(import.meta.env.VITE_API_URL);
+const graphqlClient = new GraphQLClient('https://api.platform.opentargets.org/api/v4/graphql');
 
 export default function useLungCarcinomaAssociatedTargets() {
 	return useQuery<LungCarcinomaAssociatedTargetsQuery, Error>({

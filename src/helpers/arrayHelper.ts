@@ -12,3 +12,14 @@ export function arrayToMap<TItem, TKey extends Key, TValue>(
 	}
 	return result;
 }
+function firstUpperCase(str: string): string {
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+function formatDataTypeLabel(label: string): string {
+	return label.split('_').map(firstUpperCase).join(' ');
+}
+
+export function formatLabel(label: string): string {
+	return label.includes('_') ? formatDataTypeLabel(label) : firstUpperCase(label);
+}
