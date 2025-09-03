@@ -73,6 +73,7 @@ function TargetTable(props: Props) {
 						onTabChange={setActiveChartType}
 						className="mb-4"
 					/>
+					<Text text={`Data Type Scores: ${approvedSymbol} and lung carcinoma`} />
 					<Suspense fallback={<div className="loader" />}>
 						<Chart data={chartData} />
 					</Suspense>
