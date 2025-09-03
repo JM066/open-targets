@@ -14,7 +14,6 @@ describe('Tabs', () => {
 
 		render(<Tabs tabs={mockTabs} activeTabId="bar" onTabChange={mockOnTabChange} />);
 
-		// Use the actual labels from mockTabs
 		const firstTabButton = screen.getByRole('button', { name: 'First Tab' });
 		const secondTabButton = screen.getByRole('button', { name: 'Second Tab' });
 		expect(firstTabButton).toBeInTheDocument();

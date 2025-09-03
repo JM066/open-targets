@@ -12,7 +12,7 @@ const Size = {
 	Small: 'w-12 px-3 py-2',
 	Medium: 'w-32 px-4 py-2',
 	Large: 'w-48 px-6 py-2',
-};
+} as const;
 
 export interface Props extends HTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
