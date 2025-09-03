@@ -1,15 +1,17 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
-import { formatLabel } from '../../helpers/arrayHelper';
+import { formatLabel, clampScores } from '../../helpers/arrayHelper';
 
 interface Props {
 	id: string;
 	score: number;
 }
 function TargetBarChart({ data }: { data: Props[] }) {
+	const clamped = useMemo(() => clampScores(data), [data]);
+
 	return (
 		<ResponsiveContainer width="100%" height={350}>
-			<BarChart data={data}>
+			<BarChart data={clamped}>
 				<CartesianGrid strokeDasharray="3 3" />
 				<XAxis
 					dataKey="id"

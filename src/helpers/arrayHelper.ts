@@ -23,3 +23,10 @@ function formatDataTypeLabel(label: string): string {
 export function formatLabel(label: string): string {
 	return label.includes('_') ? formatDataTypeLabel(label) : firstUpperCase(label);
 }
+
+export function clampScores<T extends { score: number }>(data: T[], maxScore: number = 1.0): T[] {
+	return data.map((item) => ({
+		...item,
+		score: Math.min(item.score, maxScore),
+	}));
+}
