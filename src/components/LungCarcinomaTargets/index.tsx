@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import useLungCarcinomaAssociatedTargets from '../../hooks/useLungCarcinomaAssociatedTargets';
+import useLungCarcinomaAssociatedTargets from '../../api-hooks/useLungCarcinomaAssociatedTargets';
 import { arrayToMap } from '../../helpers/arrayHelper';
 import TargetTable from '../TargetTable';
 import Row from '../Row';
