@@ -31,7 +31,7 @@ VITE_API_URL: Open Targets GraphQL API Endpoint
 
 ### Deployment
 
-https://open-targets-8f848d3da948.herokuapp.com/
+https://open-targets-8f848d3da948.herokuapp.com
 
 ### GraphQL
 
