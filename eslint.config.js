@@ -36,4 +36,10 @@ export default tseslint.config([
 			'prettier/prettier': 'error',
 		},
 	},
+	{
+		files: ['**/*.test.{ts,tsx}', '**/test/**/*.{ts,tsx}', '**/tests/**/*.{ts,tsx}'],
+		rules: {
+			'react-refresh/only-export-components': 'off',
+		},
+	},
 ]);

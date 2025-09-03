@@ -37,8 +37,7 @@ function TargetTable(props: Props) {
 	const select = useCallback(() => {
 		onSelect(id);
 		setIsExpanded((prev) => !prev);
-	}, [onSelect, id, isExpanded]);
-	console.log({ id, approvedSymbol, approvedName, score, onSelect, children, isSelected, chartData });
+	}, [onSelect, id]);
 
 	const Chart = activeChartType === CHART_TYPE.BAR ? TargetBarChart : TargetRadarChart;
 
